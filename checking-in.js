@@ -127,8 +127,11 @@ function check() {
     let mouths = dd.getMonth() + 1
     let days = dd.getDate()
     let hours = dd.getHours()
-    hours = hours < 10 ? '0' + hours : hours
     let minutes = dd.getMinutes()
+    mouths = mouths < 10 ? '0' + mouths : mouths
+    days = days < 10 ? '0' + days : days
+    hours = hours < 10 ? '0' + hours : hours
+    minutes = minutes < 10 ? '0' + minutes : minutes
     let formatDate =
       years + '-' + mouths + '-' + days + ' ' + hours + ':' + minutes
     let url = chuanUrl + '?text=' + msg + formatDate
