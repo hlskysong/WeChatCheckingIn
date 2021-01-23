@@ -1,0 +1,31 @@
+[
+  {
+    "label": "上班打卡时间",
+    "name": "checkingTime",
+    "type": "time",
+    "value": "09:30",
+    "validation": "required"
+  },
+  {
+    "label": "是否开启上班快捷打卡,默认 否,此处一定要确认清楚,该功能为测试功能",
+    "type": "radio",
+    "name": "quickChecking",
+    "options": {
+      "0": "否",
+      "1": "是"
+    },
+    "value": "0",
+    "validation": "required"
+  },
+  {
+    "label": "每一步操作的时间间隔，默认 1000，视机型调整，单位：ms",
+    "name": "stepInterval",
+    "value": "1000",
+    "validation": "required"
+  },
+  {
+    "label": "输入ServerChan地址",
+    "name": "chuanUrl",
+    "help": "用于打卡结果的消息通知，为空则表示不发送 例子:https://sc.ftqq.com/xxxxxxxxxx.send"
+  }
+]
