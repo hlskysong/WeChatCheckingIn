@@ -16,8 +16,7 @@ let y2 = height / 3
 swipe(x, y1, x + 5, y2, 500)
 
 toastLog('拉起企业微信,准备打卡。。。')
-let appName = '企业微信'
-app.launchApp(appName)
+app.launchApp('企业微信')
 
 let quick = false
 if (quickChecking == 1 || quickChecking == '1') {
@@ -104,19 +103,26 @@ function signAction() {
 // 判断打卡是否完成
 function check() {
   sleep(stepInterval)
+  let msg = ''
   let flagIn =
     textEndsWith('上班·正常').findOne(1000) ||
     textStartsWith('上班自动打卡·正常').findOne(1000)
   let flagOut =
     textEndsWith('下班·正常').findOne(1000) ||
     textStartsWith('今日打卡已完成').findOne(1000)
-  let msg
+  let flagInAdvance =
+    textStartsWith('你早退了').findOne(1000) &&
+    textEndsWith('确认打卡').findOne(1000)
+
   if (flagIn) {
     toastLog('打卡完成')
     msg = '上班打卡成功'
   } else if (flagOut) {
     toastLog('打卡完成')
     msg = '下班打卡成功'
+  } else if (flagInAdvance) {
+    toastLog('已经打过上班卡了!')
+    msg = '已经打过上班卡了!'
   } else {
     toastLog('打卡失败!')
     msg = '打卡失败!'
@@ -135,8 +141,23 @@ function check() {
     let formatDate =
       years + '-' + mouths + '-' + days + ' ' + hours + ':' + minutes
     let url = chuanUrl + '?text=' + msg + formatDate
-    http.get(url)
-    toastLog('脚本执行结束')
+    let sendLimit = 0
+    sendMessage(url)
+    function sendMessage(url) {
+      let res = http.get(url)
+      if (res.statusCode >= 200 && res.statusCode < 300) {
+        app.launchApp('Hamibot')
+        toastLog('脚本执行结束')
+      } else if (sendLimit < 3) {
+        sendLimit++
+        console.log(res)
+        sendMessage(url)
+      } else {
+        toastLog('通知消息发送失败')
+        console.log(formatDate, msg)
+        toastLog('脚本执行结束')
+      }
+    }
   }
 }
 
