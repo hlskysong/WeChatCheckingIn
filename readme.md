@@ -37,7 +37,7 @@ https://github.com/hlsky1988/WeChatCheckingIn
 ### 打卡状态的通知消息收不到
 
 - 目前采用的是 ServerChan 的消息通知
-- 当前(2021 年 1 月 28 日)因为某些抢茅台脚本导致 ServerChan 的服务波动,详情看 ServerChan 首页
+- 当前(2021 年 1 月 28 日)因为某些抢茅台脚本导致 ServerChan 的服务波动,详情看 微信公众号 [方糖历史消息](https://mp.weixin.qq.com/s/gNMgRO863IfbNl6oZ1w8AA)
 - 当通知消息发送失败时会重发,连续 3 次发送失败则结束脚本,这时候只能查看日志了
 
 ### 更新日志
