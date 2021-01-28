@@ -143,21 +143,23 @@ function check() {
     let url = chuanUrl + '?text=' + msg + formatDate
     let sendLimit = 0
     sendMessage(url)
-    function sendMessage(url) {
-      let res = http.get(url)
-      if (res.statusCode >= 200 && res.statusCode < 300) {
-        app.launchApp('Hamibot')
-        toastLog('脚本执行结束')
-      } else if (sendLimit < 3) {
-        sendLimit++
-        console.log(res)
-        sendMessage(url)
-      } else {
-        toastLog('通知消息发送失败')
-        console.log(formatDate, msg)
-        toastLog('脚本执行结束')
-      }
-    }
+  }
+}
+
+// 通知消息
+function sendMessage(url) {
+  let res = http.get(url)
+  if (res.statusCode >= 200 && res.statusCode < 300) {
+    app.launchApp('Hamibot')
+    toastLog('脚本执行结束')
+  } else if (sendLimit < 3) {
+    sendLimit++
+    console.log(res)
+    sendMessage(url)
+  } else {
+    toastLog('通知消息发送失败')
+    console.log(formatDate, msg)
+    toastLog('脚本执行结束')
   }
 }
 
