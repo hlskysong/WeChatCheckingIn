@@ -3,7 +3,13 @@
  * auto.waitFor()则会在在无障碍服务启动后继续运行
  * https://docs.hamibot.com/reference/widgetsBasedAutomation
  */
-const { chuanUrl, stepInterval, quickChecking, checkingTime } = hamibot.env
+const {
+  chanUrl,
+  barkUrl,
+  stepInterval,
+  quickChecking,
+  checkingTime,
+} = hamibot.env
 auto.waitFor()
 
 // 唤醒设备并解锁
@@ -127,39 +133,45 @@ function check() {
     toastLog('打卡失败!')
     msg = '打卡失败!'
   }
-  if (chuanUrl) {
-    let dd = new Date()
-    let years = dd.getFullYear()
-    let mouths = dd.getMonth() + 1
-    let days = dd.getDate()
-    let hours = dd.getHours()
-    let minutes = dd.getMinutes()
-    mouths = mouths < 10 ? '0' + mouths : mouths
-    days = days < 10 ? '0' + days : days
-    hours = hours < 10 ? '0' + hours : hours
-    minutes = minutes < 10 ? '0' + minutes : minutes
-    let formatDate =
-      years + '-' + mouths + '-' + days + ' ' + hours + ':' + minutes
-    let url = chuanUrl + '?text=' + msg + formatDate
-    let sendLimit = 0
-    sendMessage(url)
+
+  let dd = new Date()
+  let years = dd.getFullYear()
+  let mouths = dd.getMonth() + 1
+  let days = dd.getDate()
+  let hours = dd.getHours()
+  let minutes = dd.getMinutes()
+  mouths = mouths < 10 ? '0' + mouths : mouths
+  days = days < 10 ? '0' + days : days
+  hours = hours < 10 ? '0' + hours : hours
+  minutes = minutes < 10 ? '0' + minutes : minutes
+  let formatDate =
+    years + '-' + mouths + '-' + days + ' ' + hours + ':' + minutes
+  let chanLimit = 0,
+    barkLimit = 0
+
+  if (chanUrl && chanUrl.trim() !== '') {
+    let url = chanUrl + '?text=' + msg + formatDate
+    sendMessage(url, chanLimit)
+  }
+  if (barkUrl && barkUrl.trim() !== '') {
+    let url = barkUrl + msg + '/' + formatDate
+    sendMessage(url, barkLimit)
   }
 }
 
 // 通知消息
-function sendMessage(url) {
+function sendMessage(url, limit) {
   let res = http.get(url)
   if (res.statusCode >= 200 && res.statusCode < 300) {
     app.launchApp('Hamibot')
-    toastLog('脚本执行结束')
-  } else if (sendLimit < 3) {
-    sendLimit++
+  } else if (limit < 3) {
+    limit++
     console.log(res)
-    sendMessage(url)
+    sendMessage(url, limit)
   } else {
-    toastLog('通知消息发送失败')
+    toastLog(url, '通知消息发送失败')
     console.log(formatDate, msg)
-    toastLog('脚本执行结束')
+    app.launchApp('Hamibot')
   }
 }
 
