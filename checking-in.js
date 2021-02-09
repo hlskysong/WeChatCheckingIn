@@ -164,6 +164,7 @@ function sendMessage(url, limit) {
   let res = http.get(url)
   if (res.statusCode >= 200 && res.statusCode < 300) {
     app.launchApp('Hamibot')
+    exit()
   } else if (limit < 3) {
     limit++
     console.log(res)
@@ -172,6 +173,7 @@ function sendMessage(url, limit) {
     toastLog(url, '通知消息发送失败')
     console.log(formatDate, msg)
     app.launchApp('Hamibot')
+    exit()
   }
 }
 
