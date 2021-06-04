@@ -3,13 +3,8 @@
  * auto.waitFor()则会在在无障碍服务启动后继续运行
  * https://docs.hamibot.com/reference/widgetsBasedAutomation
  */
-const {
-  chanUrl,
-  barkUrl,
-  stepInterval,
-  quickChecking,
-  checkingTime,
-} = hamibot.env
+const { chanUrl, barkUrl, stepInterval, quickChecking, checkingTime } =
+  hamibot.env
 auto.waitFor()
 
 // 唤醒设备并解锁
@@ -149,6 +144,7 @@ function check() {
   let chanLimit = 0,
     barkLimit = 0
 
+  hamibot.postMessage(msg)
   if (chanUrl && chanUrl.trim() !== '') {
     let url = chanUrl + '?text=' + msg + formatDate
     sendMessage(url, chanLimit)
