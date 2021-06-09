@@ -144,7 +144,7 @@ function check() {
   let chanLimit = 0,
     barkLimit = 0
 
-  hamibot.postMessage(msg)
+  hamibot.postMessage(formatDate + ' ' + msg)
 
   if (chanUrl && chanUrl.trim() !== '') {
     let url = chanUrl + '?text=' + msg + formatDate
