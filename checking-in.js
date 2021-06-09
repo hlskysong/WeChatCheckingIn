@@ -145,6 +145,7 @@ function check() {
     barkLimit = 0
 
   hamibot.postMessage(msg)
+
   if (chanUrl && chanUrl.trim() !== '') {
     let url = chanUrl + '?text=' + msg + formatDate
     sendMessage(url, chanLimit)
@@ -153,6 +154,8 @@ function check() {
     let url = barkUrl + msg + '/' + formatDate
     sendMessage(url, barkLimit)
   }
+
+  hamibot.exit()
 }
 
 // 通知消息
