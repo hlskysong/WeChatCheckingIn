@@ -44,6 +44,7 @@ https://github.com/hlsky1988/WeChatCheckingIn
 
 ### 更新日志
 
+- 2021.07.05.194 修改了消息回传
 - 1.0.2 添加 hamibot.postMessage 回传消息
 - 1.0.1 添加脚本运行完成后结束(退出)当前脚本
 - 1.0.0 添加了 Bark 的消息通知

@@ -141,39 +141,19 @@ function check() {
   minutes = minutes < 10 ? '0' + minutes : minutes
   let formatDate =
     years + '-' + mouths + '-' + days + ' ' + hours + ':' + minutes
-  let chanLimit = 0,
-    barkLimit = 0
-
-  hamibot.postMessage(formatDate + ' ' + msg)
 
   if (chanUrl && chanUrl.trim() !== '') {
     let url = chanUrl + '?text=' + msg + formatDate
-    sendMessage(url, chanLimit)
+    http.get(url)
   }
+
   if (barkUrl && barkUrl.trim() !== '') {
     let url = barkUrl + msg + '/' + formatDate
-    sendMessage(url, barkLimit)
+    http.get(url)
   }
 
+  hamibot.postMessage(formatDate + ' ' + msg)
   hamibot.exit()
-}
-
-// 通知消息
-function sendMessage(url, limit) {
-  let res = http.get(url)
-  if (res.statusCode >= 200 && res.statusCode < 300) {
-    app.launchApp('Hamibot')
-    exit()
-  } else if (limit < 3) {
-    limit++
-    console.log(res)
-    sendMessage(url, limit)
-  } else {
-    toastLog(url, '通知消息发送失败')
-    console.log(formatDate, msg)
-    app.launchApp('Hamibot')
-    exit()
-  }
 }
 
 // ----------------------------------------
