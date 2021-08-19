@@ -52,10 +52,12 @@ function stepClick(matchStr) {
   let step = text(matchStr).findOne(1000)
   if (step) {
     console.log('匹配成功')
-    let stepLeft = step.bounds().left + 10
-    let stepTop = step.bounds().top + 2
+    // let stepLeft = step.bounds().left + 15
+    // let stepTop = step.bounds().top + 10
+    // console.log(stepLeft, stepTop)
     if (matchStr !== '打卡') {
-      click(stepLeft, stepTop)
+      // click(stepLeft, stepTop)
+      while (!click(matchStr));
     } else {
       while (!click('打卡'));
       sleep(stepInterval)
@@ -108,6 +110,7 @@ function check() {
   let flagIn =
     textEndsWith('上班·正常').findOne(1000) ||
     textStartsWith('上班自动打卡·正常').findOne(1000)
+  let flagIn2 = textStartsWith('迟到打卡').findOne(1000)
   let flagOut =
     textEndsWith('下班·正常').findOne(1000) ||
     textStartsWith('今日打卡已完成').findOne(1000)
@@ -118,6 +121,9 @@ function check() {
   if (flagIn) {
     toastLog('打卡完成')
     msg = '上班打卡成功'
+  } else if (flagIn2) {
+    toastLog('打卡完成')
+    msg = '迟到打卡 完成'
   } else if (flagOut) {
     toastLog('打卡完成')
     msg = '下班打卡成功'
