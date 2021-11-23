@@ -16,8 +16,9 @@ let y1 = (height / 3) * 2
 let y2 = height / 3
 swipe(x, y1, x + 5, y2, 500)
 
+sleep(3000)
 toastLog('拉起企业微信,准备打卡。。。')
-app.launchApp('企业微信')
+app.launch("com.tencent.wework");
 
 let quick = false
 if (quickChecking == 1 || quickChecking == '1') {
