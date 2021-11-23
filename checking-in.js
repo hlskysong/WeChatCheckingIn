@@ -3,7 +3,7 @@
  * auto.waitFor()则会在在无障碍服务启动后继续运行
  * https://docs.hamibot.com/reference/widgetsBasedAutomation
  */
-const { chanUrl, barkUrl, stepInterval, quickChecking, checkingTime } =
+const { chanUrl, barkUrl, stepInterval,awakeningDelayTime, quickChecking, checkingTime } =
   hamibot.env
 auto.waitFor()
 
@@ -15,9 +15,9 @@ let x = width / 2
 let y1 = (height / 3) * 2
 let y2 = height / 3
 swipe(x, y1, x + 5, y2, 500)
-
+sleep(awakeningDelayTime)
 toastLog('拉起企业微信,准备打卡。。。')
-app.launchApp('企业微信')
+app.launch("com.tencent.wework");
 
 let quick = false
 if (quickChecking == 1 || quickChecking == '1') {
