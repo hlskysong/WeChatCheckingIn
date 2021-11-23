@@ -18,6 +18,13 @@
     "validation": "required"
   },
   {
+    "label": "手机解锁后 至 请求唤醒企业微信的间隔时间。单位：ms",
+    "name": "awakeningDelayTime",
+    "value": "0",
+    "validation": "required",
+    "help": "部分手机解锁后立即唤起企业微信可能会导致唤起失败，请根据自身情况进行设置"
+  },
+  {
     "label": "每一步操作的时间间隔，默认 1000，视机型调整，单位：ms",
     "name": "stepInterval",
     "value": "1000",
